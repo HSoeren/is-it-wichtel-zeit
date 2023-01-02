@@ -11,18 +11,21 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and Push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: True
-          tags: isitwichtelzeit:latest
+    - uses: actions/checkout@v3
+    
+    - name: Get commit hash for release
+      id: commit
+      uses: pr-mpt/actions-commit-hash@v2
+    
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+       
+    - name: Build the Docker image and tag it with todays date, also as latest build
+      run: |
+        docker build . --tag ghcr.io/HSoeren/isitwichtelzeit:latest --tag ghcr.io/HSoeren/isitwichtelzeit:${{ steps.commit.outputs.short }}
+        docker push ghcr.io/HSoeren/isitwichtelzeit:${{ steps.commit.outputs.short }}
+        docker push ghcr.io/HSoeren/isitwichtelzeit:latest
