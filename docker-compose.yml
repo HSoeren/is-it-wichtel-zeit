@@ -1,0 +1,11 @@
+version: "3.9"
+
+networks:
+  default:
+    name: nginx-proxy-manager_default
+    external: true
+
+services:
+  web:
+    image: ghcr.io/hsoeren/isitwichtelzeit:latest
+    restart: unless-stopped
