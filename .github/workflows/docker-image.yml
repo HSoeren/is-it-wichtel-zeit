@@ -26,6 +26,6 @@ jobs:
        
     - name: Build the Docker image and tag it with todays date, also as latest build
       run: |
-        docker build . --tag ghcr.io/HSoeren/isitwichtelzeit:latest --tag ghcr.io/HSoeren/isitwichtelzeit:${{ steps.commit.outputs.short }}
-        docker push ghcr.io/HSoeren/isitwichtelzeit:${{ steps.commit.outputs.short }}
-        docker push ghcr.io/HSoeren/isitwichtelzeit:latest
+        docker build . --tag ghcr.io/hsoeren/isitwichtelzeit:latest --tag ghcr.io/hsoeren/isitwichtelzeit:${{ steps.commit.outputs.short }}
+        docker push ghcr.io/hsoeren/isitwichtelzeit:${{ steps.commit.outputs.short }}
+        docker push ghcr.io/hsoeren/isitwichtelzeit:latest
