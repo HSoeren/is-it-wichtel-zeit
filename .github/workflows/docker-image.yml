@@ -29,3 +29,8 @@ jobs:
         docker build . --tag ghcr.io/hsoeren/isitwichtelzeit:latest --tag ghcr.io/hsoeren/isitwichtelzeit:${{ steps.commit.outputs.short }}
         docker push ghcr.io/hsoeren/isitwichtelzeit:${{ steps.commit.outputs.short }}
         docker push ghcr.io/hsoeren/isitwichtelzeit:latest
+
+    - name: Webhook for autodeploy
+      uses: distributhor/workflow-webhook@v2
+      with:
+        url: ${{ secrets.DEPLOY_WEBHOOK }}
