@@ -30,7 +30,5 @@ jobs:
         docker push ghcr.io/hsoeren/isitwichtelzeit:${{ steps.commit.outputs.short }}
         docker push ghcr.io/hsoeren/isitwichtelzeit:latest
 
-    - name: Webhook for autodeploy
-      uses: distributhor/workflow-webhook@v2
-      with:
-        webhook_url: ${{ secrets.DEPLOY_WEBHOOK }}
+    - name: Ping webhook
+      run: curl -X POST ${{ secrets.DEPLOY_WEBHOOK }}
